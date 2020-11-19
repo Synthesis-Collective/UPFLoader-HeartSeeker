@@ -26,6 +26,8 @@ namespace HeartSeekerUPFLoader
 
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
+
+            //check if HeartSeek.esp is in load order
             var mk = ModKey.FromNameAndExtension("HeartSeeker.esp");
             if (!state.LoadOrder.ContainsKey(mk))
             {
@@ -35,64 +37,25 @@ namespace HeartSeekerUPFLoader
 
             System.Console.WriteLine($"{mk} found! Loading...");
 
-
+            //create hash set to hold mods we want
             var modKeySet = new HashSet<ModKey>();
+
+            //detect ammunition records in mods, adds mods containing those records to set
             foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
             {
                 var modKey = ammoGetter.FormKey.ModKey;
 
                 if (modKeySet.Add(modKey))
                 {
-                    System.Console.Write(modKey + " added.");
-                }
-                
-                else
-                {
-                    System.Console.WriteLine($"Set already contains {modKey}, moving on...");
-                }
+                    System.Console.Write(modKey + " added." + "\n");
+                }                
             }
 
-            System.Console.WriteLine("\n" + "\n" + $"Found {modKeySet.Count} masters to add:");
-            
-            foreach (var modKey in modKeySet)
-            {
-                System.Console.WriteLine(modKey);
-            }
+            //shows total number of mods we're going to have as masters
+            System.Console.WriteLine("\n" + "\n" + $"Adding {modKeySet.Count} masters to loader.");
 
-            System.Console.WriteLine("\n");
+            System.Console.WriteLine("Finished" + "\n");
 
-
-            /* Old Code, ignore
-             * 
-             *  
-             * 
-            var ammoList = new List<string>();
-            foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
-            {
-                var ammoGot = ammoGetter.FormKey.ModKey.Name;
-
-                if (ammoList.Contains(ammoGot))
-                {
-                    System.Console.WriteLine($"List already contains {ammoGot}, moving on...");
-                    continue;
-                }
-
-                if (!ammoList.Contains(ammoGot))
-                {
-                    ammoList.Add(ammoGot);
-                    System.Console.WriteLine($"{ammoGot} added.");
-                    continue;
-                }
-
-            }
-
-
-            ammoList.Sort();
-        System.Console.WriteLine("\n" + "\n" + $"Found {ammoList.Count} masters to add:");
-        ammoList.ForEach(item => System.Console.Write(item + "\n"));
-        System.Console.WriteLine("\n");
-
-        */
 
 
         }
