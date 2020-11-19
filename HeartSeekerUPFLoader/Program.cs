@@ -29,7 +29,7 @@ namespace HeartSeekerUPFLoader
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
 
-            //check if HeartSeek.esp is in load order
+            //check if HeartSeeker.esp is in load order
             var mk = ModKey.FromNameAndExtension("HeartSeeker.esp");
             if (!state.LoadOrder.ContainsKey(mk))
             {
@@ -75,7 +75,7 @@ namespace HeartSeekerUPFLoader
                 // Order the masters to match load order
                 //old load order getter config
                 MastersListOrdering = new BinaryWriteParameters.MastersListOrderingByLoadOrder(myLoadOrder),
-                //new mutagen 0.21.3 
+                //new mutagen 0.21.3, i've not got working yet
                 //MastersListOrdering = new BinaryWriteParameters.MastersListOrderingByLoadOrder(state.LoadOrder),
                 //Ignore default Synthesis.esp mod output name
                 ModKey = BinaryWriteParameters.ModKeyOption.NoCheck,
