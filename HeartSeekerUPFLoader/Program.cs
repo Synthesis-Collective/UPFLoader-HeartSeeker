@@ -35,11 +35,42 @@ namespace HeartSeekerUPFLoader
 
             System.Console.WriteLine($"{mk} found! Loading...");
 
+
+            var modKeySet = new HashSet<ModKey>();
+            foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
+            {
+                var modKey = ammoGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added.");
+                }
+                
+                else
+                {
+                    System.Console.WriteLine($"Set already contains {modKey}, moving on...");
+                }
+            }
+
+            System.Console.WriteLine("\n" + "\n" + $"Found {modKeySet.Count} masters to add:");
+            
+            foreach (var modKey in modKeySet)
+            {
+                System.Console.WriteLine(modKey);
+            }
+
+            System.Console.WriteLine("\n");
+
+
+            /* Old Code, ignore
+             * 
+             *  
+             * 
             var ammoList = new List<string>();
             foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
             {
                 var ammoGot = ammoGetter.FormKey.ModKey.Name;
-                
+
                 if (ammoList.Contains(ammoGot))
                 {
                     System.Console.WriteLine($"List already contains {ammoGot}, moving on...");
@@ -55,10 +86,14 @@ namespace HeartSeekerUPFLoader
 
             }
 
+
             ammoList.Sort();
-            System.Console.WriteLine("\n" + "\n" + $"Found {ammoList.Count} masters to add:");
-            ammoList.ForEach(item => System.Console.Write(item + "\n"));
-            System.Console.WriteLine("\n");
+        System.Console.WriteLine("\n" + "\n" + $"Found {ammoList.Count} masters to add:");
+        ammoList.ForEach(item => System.Console.Write(item + "\n"));
+        System.Console.WriteLine("\n");
+
+        */
+
 
         }
 
