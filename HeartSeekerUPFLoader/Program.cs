@@ -54,6 +54,61 @@ namespace HeartSeekerUPFLoader
                 }
             }
 
+            //detect weapon records in mods, adds mods containing those records to set
+            foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
+            {
+                var modKey = weapGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
+            //detect spell records in mods, adds mods containing those records to set
+            foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningOverrides())
+            {
+                var modKey = spellGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
+            //detect perk records in mods, adds mods containing those records to set
+            foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningOverrides())
+            {
+                var modKey = perkGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
+            //detect GMST records in mods, adds mods containing those records to set
+            foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningOverrides())
+            {
+                var modKey = gmstGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
+            //detect npc records in mods, adds mods containing those records to set
+            foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningOverrides())
+            {
+                var modKey = npcGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
             //shows total number of mods we're going to have as masters
             System.Console.WriteLine("\n" + "\n" + $"Adding {modKeySet.Count} masters to loader.");
 
@@ -66,9 +121,7 @@ namespace HeartSeekerUPFLoader
             var myLoadOrder = state.LoadOrder.Select(Entry => Entry.Key);
 
 
-            //state.PatchMod.ModHeader.MasterReferences.Add(modKeySet);
-
-            //HashSet<ModKey> keys = new HashSet<ModKey>();
+            //takes the set of mods we've collected and adds them as masters to the esp
             state.PatchMod.ModHeader.MasterReferences.AddRange(
                 modKeySet.Select(m => new MasterReference()
                 {
