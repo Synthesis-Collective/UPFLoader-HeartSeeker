@@ -1,3 +1,4 @@
+using DynamicData;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
@@ -58,12 +59,23 @@ namespace HeartSeekerUPFLoader
 
             System.Console.WriteLine("Finished" + "\n");
             
-            //getting the Skyrim data path to dump our created HeartSeekerLoader.esp
+            //getting the Skyrim data path to dump our created HeartSeekerLoader.esp, will be co-opted by mod organizer anyhow
             var dataPath = Path.Combine(GameRelease.SkyrimSE.ToWjGame().MetaData().GameLocation().ToString(), "Data");
 
             //old load order getter
             var myLoadOrder = state.LoadOrder.Select(Entry => Entry.Key);
-           
+
+
+            //state.PatchMod.ModHeader.MasterReferences.Add(modKeySet);
+
+            //HashSet<ModKey> keys = new HashSet<ModKey>();
+            state.PatchMod.ModHeader.MasterReferences.AddRange(
+                modKeySet.Select(m => new MasterReference()
+                {
+                    Master = m
+                }));
+
+
             //special output of our esp to get around synthesis default, dummy synthesis esp still created
             state.PatchMod.WriteToBinary(
             Path.Combine(dataPath, "HeartSeekerLoader.esp"),
