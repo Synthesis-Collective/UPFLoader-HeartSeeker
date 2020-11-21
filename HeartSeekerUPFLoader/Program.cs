@@ -30,6 +30,26 @@ namespace HeartSeekerUPFLoader
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
 
+
+
+            /*
+             
+             TO DO:
+             * run more comparison tests
+             * check if exceeding 254 plugin load and warn
+             * clean up, tighten up
+             * investigate mutagen 0.21.3 load order calling
+             * investigate linked formkeys (eg ammo.LinkedFormKeys)
+             * +Noggog: you might want to remove ModKey.Null from the set after running, as that'll likely be added to your set, thanks to any null FormLinks
+             * related to LinkedFormKey, make sure bash/smash included
+             
+             */
+
+
+
+
+
+
             //check if HeartSeeker.esp is in load order
             var mk = ModKey.FromNameAndExtension("HeartSeeker.esp");
             if (!state.LoadOrder.ContainsKey(mk))
@@ -47,6 +67,17 @@ namespace HeartSeekerUPFLoader
             foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
             {
                 var modKey = ammoGetter.FormKey.ModKey;
+
+                if (modKeySet.Add(modKey))
+                {
+                    System.Console.Write(modKey + " added." + "\n");
+                }
+            }
+
+            //detect weapon records in mods, adds mods containing those records to set
+            foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningOverrides())
+            {
+                var modKey = projGetter.FormKey.ModKey;
 
                 if (modKeySet.Add(modKey))
                 {
