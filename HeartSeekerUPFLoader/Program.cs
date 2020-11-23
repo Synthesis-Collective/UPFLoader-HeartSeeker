@@ -171,6 +171,8 @@ namespace HeartSeekerUPFLoader
                 }));
 
 
+            
+
             //special output of our esp to get around synthesis default, dummy synthesis esp still created
             state.PatchMod.WriteToBinary(
             Path.Combine(dataPath, "HeartSeekerLoader.esp"),
@@ -188,6 +190,13 @@ namespace HeartSeekerUPFLoader
                 ModKey = BinaryWriteParameters.ModKeyOption.NoCheck,
             });
 
+           /* 
+            foreach (var item in state.LoadOrder)
+            {
+                System.Console.WriteLine(item.Value.ToString());
+            }
+
+            */
         }
 
     }
