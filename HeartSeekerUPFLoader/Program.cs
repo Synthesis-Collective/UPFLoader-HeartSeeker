@@ -31,8 +31,6 @@ namespace HeartSeekerUPFLoader
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
 
-
-
             /*
              
              TO DO:
@@ -63,6 +61,7 @@ namespace HeartSeekerUPFLoader
 
             //detect ammunition records in mods, adds mods containing those records to set
             foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningOverrides())
+
             {
                 //pull the mod names from the FormKey
                 var modKey = ammoGetter.FormKey.ModKey;
@@ -74,6 +73,12 @@ namespace HeartSeekerUPFLoader
                 modKeySet.Add(linkedKeys);
 
             }
+            //make sure we get mods that make overrides to ammo records
+            foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(ammoGetter.ModKey);
+            }
 
             //detect projectile records in mods, adds mods containing those records to set. 
             //heartseeker doesn't specifically call for, but safer to include
@@ -81,10 +86,18 @@ namespace HeartSeekerUPFLoader
             {
                 var modKey = projGetter.FormKey.ModKey;
                 var linkedKeys = projGetter.LinkFormKeys.Select(l => l.ModKey);
+                
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
                 modKeySet.Add(linkedKeys);
+            }
+
+            //make sure we get mods that make overrides to ammo records
+            foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(projGetter.ModKey);
             }
 
             //detect weapon records in mods, adds mods containing those records to set
@@ -98,6 +111,13 @@ namespace HeartSeekerUPFLoader
                 modKeySet.Add(linkedKeys);
             }
 
+            //make sure we get mods that make overrides to ammo records
+            foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(weapGetter.ModKey);
+            }
+
             //detect spell records in mods, adds mods containing those records to set
             foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningOverrides())
             {
@@ -107,6 +127,13 @@ namespace HeartSeekerUPFLoader
                 //add keys to our hashset
                 modKeySet.Add(modKey);
                 modKeySet.Add(linkedKeys);
+            }
+
+            //make sure we get mods that make overrides to ammo records
+            foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(spellGetter.ModKey);
             }
 
             //detect perk records in mods, adds mods containing those records to set
@@ -120,6 +147,13 @@ namespace HeartSeekerUPFLoader
                 modKeySet.Add(linkedKeys);
             }
 
+            //make sure we get mods that make overrides to ammo records
+            foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(perkGetter.ModKey);
+            }
+
             //detect GMST records in mods, adds mods containing those records to set
             foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningOverrides())
             {
@@ -131,6 +165,13 @@ namespace HeartSeekerUPFLoader
                 modKeySet.Add(linkedKeys);
             }
 
+            //make sure we get mods that make overrides to ammo records
+            foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(gmstGetter.ModKey);
+            }
+
             //detect npc records in mods, adds mods containing those records to set
             foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningOverrides())
             {
@@ -140,6 +181,13 @@ namespace HeartSeekerUPFLoader
                 //add keys to our hashset
                 modKeySet.Add(modKey);
                 modKeySet.Add(linkedKeys);
+            }
+
+            //make sure we get mods that make overrides to ammo records
+            foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningContextOverrides(state.LinkCache))
+            {
+                //add keys to our hashset
+                modKeySet.Add(npcGetter.ModKey);
             }
 
             //removes null mod names that may have been gathered
@@ -159,9 +207,8 @@ namespace HeartSeekerUPFLoader
             //getting the Skyrim data path to dump our created HeartSeekerLoader.esp, will be co-opted by mod organizer anyhow
             var dataPath = Path.Combine(GameRelease.SkyrimSE.ToWjGame().MetaData().GameLocation().ToString(), "Data");
 
-            //old load order getter
-            var myLoadOrder = state.LoadOrder.Select(loadOrder => loadOrder.Key);
-
+            //gets modkey from the load order
+            var myLoadOrder = state.LoadOrder.Select(loadKey => loadKey.Key);
 
             //takes the set of mods we've collected and adds them as masters to the esp
             state.PatchMod.ModHeader.MasterReferences.AddRange(
@@ -169,9 +216,7 @@ namespace HeartSeekerUPFLoader
                 {
                     Master = m
                 }));
-
-
-            
+                                   
 
             //special output of our esp to get around synthesis default, dummy synthesis esp still created
             state.PatchMod.WriteToBinary(
@@ -188,15 +233,9 @@ namespace HeartSeekerUPFLoader
                 //MastersListOrdering = new BinaryWriteParameters.MastersListOrderingByLoadOrder(state.LoadOrder),
                 //Ignore default Synthesis.esp mod output name
                 ModKey = BinaryWriteParameters.ModKeyOption.NoCheck,
+                
             });
 
-           /* 
-            foreach (var item in state.LoadOrder)
-            {
-                System.Console.WriteLine(item.Value.ToString());
-            }
-
-            */
         }
 
     }
