@@ -11,7 +11,7 @@ This outputs "HeartSeekerLoader.esp", which you then load in with zEdit to worka
 
 Once you've created your zEdit patch, please delete the loader esp.
 
-This also outputs a dummy Synthesis.esp. Please only run this patch alone, and make a backup or rename any other "Synthesis.esp".
+This also outputs a dummy Synthesis.esp. Please only run this patch alone, and make a backup or rename any other "Synthesis.esp" you have.
 
 Be sure to check for conflicts in your created zEdit patch afterwards in xEdit.
 
