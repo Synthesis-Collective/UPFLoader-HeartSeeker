@@ -16,7 +16,7 @@ This also outputs a dummy Synthesis.esp. Please only run this patch alone, and m
 Be sure to check for conflicts in your created zEdit patch afterwards in xEdit.
 
 To use, install Synthesis and add this repo, or select it from the built-in list. <br>
-https://github.com/Noggog/Synthesis/tree/0.11.1
+https://github.com/Noggog/Synthesis/
 
 
 Inspired by: https://www.nexusmods.com/skyrimspecialedition/mods/35012 <br>
