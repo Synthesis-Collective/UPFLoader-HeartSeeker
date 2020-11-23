@@ -17,5 +17,5 @@ Be sure to check for conflicts in your created zEdit patch afterwards in xEdit.
 
 
 
-Inspired by: https://www.nexusmods.com/skyrimspecialedition/mods/35012
+Inspired by: https://www.nexusmods.com/skyrimspecialedition/mods/35012 <br>
 This loader was made due to the xEdit script missing some mods that need to be included.
