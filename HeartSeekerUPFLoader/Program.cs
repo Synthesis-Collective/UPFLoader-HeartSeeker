@@ -51,7 +51,7 @@ namespace UPFLoaderHeartSeeker
             }
             
             // got it, carrying on
-            //System.Console.WriteLine($"{mk} found! Loading...");
+            System.Console.WriteLine($"{mk} found! Loading...");
 
             
             //create hash set to hold mods we want
@@ -92,7 +92,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to projectile records
             foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
@@ -110,7 +110,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to weapon records
             foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
@@ -128,7 +128,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to spell records
             foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
@@ -146,7 +146,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to perk records
             foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
@@ -164,7 +164,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to gmst records
             foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
@@ -182,7 +182,7 @@ namespace UPFLoaderHeartSeeker
                 modKeySet.Add(linkedKeys);
             }
 
-            //make sure we get mods that make overrides to ammo records
+            //make sure we get mods that make overrides to npc records
             foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningContextOverrides(state.LinkCache))
             {
                 //add keys to our hashset
