@@ -1,7 +1,7 @@
 {
-  "Nickname": "HeartSeekerUPFLoader",
+  "Nickname": "UPFLoader - HeartSeeker",
   "Visibility": "Visible",
-  "OneLineDescription": "",
+  "OneLineDescription": "Loader for HeartSeeker Skyrim UPF Patch",
   "LongDescription": "",
   "PreferredAutoVersioning": "Default"
 }
