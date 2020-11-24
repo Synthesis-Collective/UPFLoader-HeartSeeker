@@ -5,7 +5,7 @@
 Loader for HeartSeeker Skyrim UPF Patch:<br>
 https://www.nexusmods.com/skyrimspecialedition/mods/37741
 
-This loader gathers the mods from your load order that contain the records HeartSeeker wants to edit.
+This loader gathers the mods from your load order that contain the records HeartSeeker wants to edit. Any mod you do not want to include, just untick in ModOrganizer before launching Synthesis.
 
 This outputs "HeartSeekerLoader.esp", which you then load in with zEdit to workaround zEdit's 255 plugin limit.
 
