@@ -34,7 +34,6 @@ namespace HeartSeekerUPFLoader
             /*
              
              TO DO:
-             * run more comparison tests
              * check if exceeding 254 plugin load and warn
              * clean up, tighten up
              * investigate mutagen 0.21.3 load order calling

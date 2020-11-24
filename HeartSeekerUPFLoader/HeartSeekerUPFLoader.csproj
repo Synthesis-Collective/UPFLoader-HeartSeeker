@@ -3,6 +3,8 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <Platforms>AnyCPU;x64</Platforms>
+        <AssemblyName>UPFLoader-HeartSeeker</AssemblyName>
+        <RootNamespace>UPFLoader-HeartSeeker</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
