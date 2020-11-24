@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using Wabbajack.Common;
 
-namespace HeartSeekerUPFLoader
+namespace UPFLoaderHeartSeeker
 {
     public class Program
     {
