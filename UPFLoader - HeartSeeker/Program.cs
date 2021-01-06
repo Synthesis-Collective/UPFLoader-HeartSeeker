@@ -30,16 +30,13 @@ namespace UPFLoaderHeartSeeker
 
         public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
-
+ 
             /*
-             
              TO DO:
              * check if exceeding 254 plugin load and warn
              * clean up, tighten up
-             * investigate mutagen 0.21.3 load order calling
+             * custom binarywrite, to flag output as esl and stop the dummy Synthesis.esp being created
              */
-
-
 
 
             //check if HeartSeeker.esp is in load order
