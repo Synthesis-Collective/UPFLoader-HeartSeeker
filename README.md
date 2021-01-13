@@ -21,3 +21,5 @@ https://github.com/Noggog/Synthesis/
 
 Inspired by: https://www.nexusmods.com/skyrimspecialedition/mods/35012 <br>
 This loader was made due to the xEdit script missing some mods that need to be included.
+
+meow, oink. moo, woof.
