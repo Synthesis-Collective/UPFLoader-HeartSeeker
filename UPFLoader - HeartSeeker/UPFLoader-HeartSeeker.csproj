@@ -5,6 +5,8 @@
         <Platforms>AnyCPU;x64</Platforms>
         <AssemblyName>UPFLoader-HeartSeeker</AssemblyName>
         <RootNamespace>UPFLoader-HeartSeeker</RootNamespace>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>nullable</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
