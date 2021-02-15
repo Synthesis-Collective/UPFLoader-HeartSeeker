@@ -6,18 +6,18 @@ using Noggog;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Wabbajack.Common;
 
 namespace UPFLoaderHeartSeeker
 {
     public class Program
     {
-        public static int Main(string[] args)
+        public static Task<int> Main(string[] args)
         {
-            return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
-                args: args,
-                patcher: RunPatch,
-                userPreferences: new UserPreferences()
+            return SynthesisPipeline.Instance
+                .AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch)
+                .Run(args, new RunPreferences()
                 {
                     ActionsForEmptyArgs = new RunDefaultPatcher()
                     {
@@ -28,7 +28,7 @@ namespace UPFLoaderHeartSeeker
                 });
         }
 
-        public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
  
             /*
@@ -62,7 +62,7 @@ namespace UPFLoaderHeartSeeker
                 //pull the mod names from the FormKey
                 var modKey = ammoGetter.FormKey.ModKey;
                 //pull the mod names from linked records
-                var linkedKeys = ammoGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = ammoGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -81,8 +81,8 @@ namespace UPFLoaderHeartSeeker
             foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningOverrides())
             {
                 var modKey = projGetter.FormKey.ModKey;
-                var linkedKeys = projGetter.LinkFormKeys.Select(l => l.ModKey);
-                
+                var linkedKeys = projGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
+
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -100,7 +100,7 @@ namespace UPFLoaderHeartSeeker
             foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningOverrides())
             {
                 var modKey = weapGetter.FormKey.ModKey;
-                var linkedKeys = weapGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = weapGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -118,7 +118,7 @@ namespace UPFLoaderHeartSeeker
             foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningOverrides())
             {
                 var modKey = spellGetter.FormKey.ModKey;
-                var linkedKeys = spellGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = spellGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -136,7 +136,7 @@ namespace UPFLoaderHeartSeeker
             foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningOverrides())
             {
                 var modKey = perkGetter.FormKey.ModKey;
-                var linkedKeys = perkGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = perkGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -154,7 +154,7 @@ namespace UPFLoaderHeartSeeker
             foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningOverrides())
             {
                 var modKey = gmstGetter.FormKey.ModKey;
-                var linkedKeys = gmstGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = gmstGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
@@ -172,7 +172,7 @@ namespace UPFLoaderHeartSeeker
             foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningOverrides())
             {
                 var modKey = npcGetter.FormKey.ModKey;
-                var linkedKeys = npcGetter.LinkFormKeys.Select(l => l.ModKey);
+                var linkedKeys = npcGetter.ContainedFormLinks.Select(l => l.FormKey.ModKey);
 
                 //add keys to our hashset
                 modKeySet.Add(modKey);
