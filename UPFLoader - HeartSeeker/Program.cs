@@ -3,11 +3,11 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Noggog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Wabbajack.Common;
 
 namespace UPFLoaderHeartSeeker
 {
@@ -199,9 +199,13 @@ namespace UPFLoaderHeartSeeker
             System.Console.WriteLine("\n" + "\n" + $"Adding {modKeySet.Count} masters to loader.");
 
             System.Console.WriteLine("Finished" + "\n");
-            
+
             //getting the Skyrim data path to dump our created HeartSeekerLoader.esp, will be co-opted by mod organizer anyhow
-            var dataPath = Path.Combine(GameRelease.SkyrimSE.ToWjGame().MetaData().GameLocation().ToString(), "Data");
+            if (!GameLocations.TryGetGameFolder(GameRelease.SkyrimSE, out var gamePath))
+            {
+                throw new ArgumentException("Game folder can not be located automatically");
+            }
+            var dataPath = Path.Combine(gamePath, "Data");
 
             //gets modkey from the load order
             var myLoadOrder = state.LoadOrder.Select(loadKey => loadKey.Key);
