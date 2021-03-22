@@ -70,7 +70,7 @@ namespace UPFLoaderHeartSeeker
 
             }
             //make sure we get mods that make overrides to ammo records
-            foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningContextOverrides(state.LinkCache))
+            foreach (var ammoGetter in state.LoadOrder.PriorityOrder.Ammunition().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(ammoGetter.ModKey);
@@ -90,7 +90,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to projectile records
-            foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningContextOverrides(state.LinkCache))
+            foreach (var projGetter in state.LoadOrder.PriorityOrder.Projectile().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(projGetter.ModKey);
@@ -108,7 +108,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to weapon records
-            foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningContextOverrides(state.LinkCache))
+            foreach (var weapGetter in state.LoadOrder.PriorityOrder.Weapon().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(weapGetter.ModKey);
@@ -126,7 +126,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to spell records
-            foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningContextOverrides(state.LinkCache))
+            foreach (var spellGetter in state.LoadOrder.PriorityOrder.Spell().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(spellGetter.ModKey);
@@ -144,7 +144,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to perk records
-            foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningContextOverrides(state.LinkCache))
+            foreach (var perkGetter in state.LoadOrder.PriorityOrder.Perk().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(perkGetter.ModKey);
@@ -162,7 +162,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to gmst records
-            foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningContextOverrides(state.LinkCache))
+            foreach (var gmstGetter in state.LoadOrder.PriorityOrder.GameSetting().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(gmstGetter.ModKey);
@@ -180,7 +180,7 @@ namespace UPFLoaderHeartSeeker
             }
 
             //make sure we get mods that make overrides to npc records
-            foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningContextOverrides(state.LinkCache))
+            foreach (var npcGetter in state.LoadOrder.PriorityOrder.Npc().WinningContextOverrides())
             {
                 //add keys to our hashset
                 modKeySet.Add(npcGetter.ModKey);
@@ -200,13 +200,6 @@ namespace UPFLoaderHeartSeeker
 
             System.Console.WriteLine("Finished" + "\n");
 
-            //getting the Skyrim data path to dump our created HeartSeekerLoader.esp, will be co-opted by mod organizer anyhow
-            if (!GameLocations.TryGetGameFolder(GameRelease.SkyrimSE, out var gamePath))
-            {
-                throw new ArgumentException("Game folder can not be located automatically");
-            }
-            var dataPath = Path.Combine(gamePath, "Data");
-
             //gets modkey from the load order
             var myLoadOrder = state.LoadOrder.Select(loadKey => loadKey.Key);
 
@@ -220,7 +213,7 @@ namespace UPFLoaderHeartSeeker
 
             //special output of our esp to get around synthesis default, dummy synthesis esp still created
             state.PatchMod.WriteToBinary(
-            Path.Combine(dataPath, "HeartSeekerLoader.esp"),
+            Path.Combine(state.DataFolderPath, "HeartSeekerLoader.esp"),
             new BinaryWriteParameters()
             {
                 // Don't modify the content of the masters list with what records we have inside
